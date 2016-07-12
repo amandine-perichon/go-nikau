@@ -1,0 +1,11 @@
+header {
+  font-size: 3rem;
+  color: white;
+  background-color: black;
+  height: 5rem;
+  border-bottom: 1px solid blue
+}
+
+.cheer {
+  max-width: 800px
+}
