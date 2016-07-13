@@ -1,14 +1,16 @@
 var Cheer = React.createClass({
   propTypes: {
     backgroundIndex: React.PropTypes.number.isRequired,
-    shapeIndex: React.PropTypes.number.isRequired
+    shapeIndex: React.PropTypes.number.isRequired,
+    inputText: React.PropTypes.string.isRequired
   },
   render: function () {
     var background = backgrounds[this.props.backgroundIndex].vector
     var shape = shapes[this.props.shapeIndex].vector
-    var svg = "<svg width='800' height='600'>" + background + shape + "</svg>"
+    var text = buildTextSVGTag(this.props.inputText, "red") 
+    var svg = "<svg width='800' height='600'>" + background + shape + text + "</svg>"
     function createMarkup() { return {__html: svg} }
-    return <div className= "cheer" dangerouslySetInnerHTML={createMarkup()}></div>
+    return <div className= "eight columns cheer" dangerouslySetInnerHTML={createMarkup()}></div>
   }
 })
 
@@ -43,20 +45,19 @@ var TextInput = React.createClass({
   propTypes: {
     onChange: React.PropTypes.func.isRequired
   },
-  getInitialState: function() {
-    return {value: 'Enter your text here'}
-  },
   handleChange: function(event) {
-    this.setState({value: event.target.value})
-    this.props.onChange(this.state.value)
+    this.props.onChange(event.target.value)
   },
   render: function() {
     return (
-      <input
+      <textarea
         type="text"
-        value={this.state.value}
+        placeholder="Write a cheer up message to your cohort!"
+        rows="5"
+        cols="40"
+        maxlength="200"
         onChange={this.handleChange}
-      />
+      ></textarea>
     )
   }
 })
@@ -71,20 +72,29 @@ var App = React.createClass({
   render: function () {
     return (
       <div>
-      <header>
-        <span>GO NIKAU</span>
-      </header>
-      <Selector 
-        choices={backgrounds} 
-        currentIndex={this.state.backgroundIndex} 
-        onChange={this.changeBackgoundIndex} />
-      <Selector 
-        choices={shapes} 
-        currentIndex={this.state.shapeIndex} 
-        onChange={this.changeShapeIndex} />
-      <TextInput onChange={this.changeText} />
-      <span>My text is {this.state.inputText}</span>
-      <Cheer backgroundIndex={this.state.backgroundIndex} shapeIndex={this.state.shapeIndex} />
+        <header>
+          <span>GO NIKAU</span>
+        </header>
+        <div className="row">
+          <div className="four columns">
+            <Selector 
+              choices={backgrounds} 
+              currentIndex={this.state.backgroundIndex} 
+              onChange={this.changeBackgoundIndex} />
+            <Selector 
+              choices={shapes} 
+              currentIndex={this.state.shapeIndex} 
+              onChange={this.changeShapeIndex} />
+            <TextInput onChange={this.changeText} />
+            <button onClick={() => console.log("Copy to clipboard")}>Copy to clipboard
+            </button>
+            <button onClick={() => console.log("Share on Slack")}>Share on Slack
+            </button>
+          </div>
+          <Cheer  backgroundIndex={this.state.backgroundIndex}
+                  shapeIndex={this.state.shapeIndex}
+                  inputText={this.state.inputText} />
+        </div>
       </div>
     )
   },
