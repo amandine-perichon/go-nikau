@@ -1,14 +1,14 @@
-var backgrounds = {
-  1: {
-    description: "Artsy Pink",
-    fileName: "background-1.svg"
+var backgrounds = [
+  {
+    description: "Triangles",
+    vector: triangles
   },
-  2: {
+  {
     description: "Rainbow",
-    fileName: "background-2.svg"
+    vector: rainbow
   },
-  3: {
+  {
     description: "Zebra",
-    fileName: "background-3.svg"
+    vector: zebra
   }
-}
+]
