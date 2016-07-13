@@ -1,15 +1,3 @@
-header {
-  font-size: 3rem;
-  color: white;
-  background-color: black;
-  height: 5rem;
-  border-bottom: 1px solid blue
-}
-
-.cheer {
-  width: 100%
-}
-
 .colorpicker {
   position: relative;
   width: 14em;

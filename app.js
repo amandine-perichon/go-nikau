@@ -2,12 +2,13 @@ var Cheer = React.createClass({
   propTypes: {
     backgroundIndex: React.PropTypes.number.isRequired,
     shapeIndex: React.PropTypes.number.isRequired,
-    inputText: React.PropTypes.string.isRequired
+    inputText: React.PropTypes.string.isRequired,
+    textColor: React.PropTypes.string.isRequired
   },
   render: function () {
     var background = backgrounds[this.props.backgroundIndex].vector
     var shape = shapes[this.props.shapeIndex].vector
-    var text = buildTextSVGTag(this.props.inputText, "red") 
+    var text = buildTextSVGTag(this.props.inputText, this.props.textColor) 
     var svg = "<svg width='800' height='600'>" + background + shape + text + "</svg>"
     function createMarkup() { return {__html: svg} }
     return <div className= "eight columns cheer" dangerouslySetInnerHTML={createMarkup()}></div>
@@ -55,10 +56,30 @@ var TextInput = React.createClass({
         placeholder="Write a cheer up message to your cohort!"
         rows="5"
         cols="40"
-        maxlength="200"
+        maxLength="200"
         onChange={this.handleChange}
       ></textarea>
     )
+  }
+})
+
+var ColorInput = React.createClass({
+  propTypes: {
+    onChange: React.PropTypes.func.isRequired
+  },
+  getInitialState: function () {
+    return {color : 'rgb(0,0,0,1)'}
+  },
+  render: function () {
+    return (
+      <ColorPicker color={this.state.color} 
+      onChange={this.handleChange} 
+      opacitySlider />
+    )
+  },
+  handleChange : function(color) {
+    this.setState({ color : color })
+    this.props.onChange(color)
   }
 })
 
@@ -66,7 +87,8 @@ var App = React.createClass({
   getInitialState: function() {
     return {backgroundIndex: 0,
             shapeIndex: 0,
-            inputText: ''
+            inputText: '',
+            textColor: 'rgb(0,0,0,1)'
           }
   },
   render: function () {
@@ -85,6 +107,7 @@ var App = React.createClass({
               choices={shapes} 
               currentIndex={this.state.shapeIndex} 
               onChange={this.changeShapeIndex} />
+            <ColorInput onChange={this.changeColor}/>
             <TextInput onChange={this.changeText} />
             <button onClick={() => console.log("Copy to clipboard")}>Copy to clipboard
             </button>
@@ -93,7 +116,8 @@ var App = React.createClass({
           </div>
           <Cheer  backgroundIndex={this.state.backgroundIndex}
                   shapeIndex={this.state.shapeIndex}
-                  inputText={this.state.inputText} />
+                  inputText={this.state.inputText}
+                  textColor={this.state.textColor} />
         </div>
       </div>
     )
@@ -106,6 +130,9 @@ var App = React.createClass({
   },
   changeText: function (text) {
     this.setState({inputText: text})
+  },
+  changeColor: function (color) {
+    this.setState({textColor: color})
   }
 })
 
