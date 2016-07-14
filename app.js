@@ -3,15 +3,21 @@ var Cheer = React.createClass({
     backgroundIndex: React.PropTypes.number.isRequired,
     shapeIndex: React.PropTypes.number.isRequired,
     inputText: React.PropTypes.string.isRequired,
-    textColor: React.PropTypes.string.isRequired
+    textColor: React.PropTypes.string.isRequired,
   },
   render: function () {
-    var background = backgrounds[this.props.backgroundIndex].vector
-    var shape = shapes[this.props.shapeIndex].vector
-    var text = buildTextSVGTag(this.props.inputText, this.props.textColor) 
-    var svg = "<svg width='800' height='600'>" + background + shape + text + "</svg>"
+    var svg = this.buildSVG(this.props.backgroundIndex,
+              this.props.shapeIndex,
+              this.props.inputText,
+              this.props.textColor)
     function createMarkup() { return {__html: svg} }
     return <div className= "eight columns cheer" dangerouslySetInnerHTML={createMarkup()}></div>
+  },
+  buildSVG: function (backgroundIndex, shapeIndex, inputText, textColor) {
+    var background = backgrounds[backgroundIndex].vector
+    var shape = shapes[shapeIndex].vector
+    var text = buildTextSVGTag(inputText, textColor)
+    return "<svg width='800' height='600'>" + background + shape + text + "</svg>"
   }
 })
 
@@ -87,8 +93,9 @@ var App = React.createClass({
   getInitialState: function() {
     return {backgroundIndex: 0,
             shapeIndex: 0,
-            inputText: '',
-            textColor: 'rgb(0,0,0,1)'
+            inputText: 'Go Nikau!',
+            textColor: 'rgb(0,0,0,1)',
+            copied: false
           }
   },
   render: function () {
@@ -107,17 +114,27 @@ var App = React.createClass({
               choices={shapes} 
               currentIndex={this.state.shapeIndex} 
               onChange={this.changeShapeIndex} />
-            <ColorInput onChange={this.changeColor}/>
+            <div>Write a message and pick a color</div>
             <TextInput onChange={this.changeText} />
-            <button onClick={() => console.log("Copy to clipboard")}>Copy to clipboard
-            </button>
-            <button onClick={() => console.log("Share on Slack")}>Share on Slack
-            </button>
+            <ColorInput onChange={this.changeColor}/>
+            <CopyToClipboard 
+              text={
+                'http://localhost:8000/png' +
+                '?backgroundIndex=' + this.state.backgroundIndex +
+                '&shapeIndex=' + this.state.shapeIndex +
+                '&inputText=' + encodeURI(this.state.inputText) +
+                '&textColor=' + encodeURI(this.state.textColor)
+                }
+              onCopy={() => {this.setState({copied: true})}}>
+              <button>Copy to clipboard</button>
+            </CopyToClipboard>
           </div>
-          <Cheer  backgroundIndex={this.state.backgroundIndex}
-                  shapeIndex={this.state.shapeIndex}
-                  inputText={this.state.inputText}
-                  textColor={this.state.textColor} />
+          <Cheer
+            backgroundIndex={this.state.backgroundIndex}
+            shapeIndex={this.state.shapeIndex}
+            inputText={this.state.inputText}
+            textColor={this.state.textColor}
+            onChange={this.changeImage} />
         </div>
       </div>
     )
@@ -137,7 +154,7 @@ var App = React.createClass({
 })
 
 function buildTextSVGTag (text, color) {
-  return '<text x="0" y="15" fill="' + color + '">' + text + '</text>'
+  return '<text x="50" y="150" font-size="5rem" font-family="Courier New" stroke="black" fill="' + color + '">' + text + '</text>'
 }
 
 var app = <App />
