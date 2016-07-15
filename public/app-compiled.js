@@ -156,7 +156,7 @@ var App = React.createClass({
           React.createElement(
             CopyToClipboard,
             {
-              text: 'http://localhost:8000/png' + '?backgroundIndex=' + this.state.backgroundIndex + '&shapeIndex=' + this.state.shapeIndex + '&inputText=' + encodeURI(this.state.inputText) + '&textColor=' + encodeURI(this.state.textColor),
+              text: 'https://go-nikau.herokuapp.com/png' + '?backgroundIndex=' + this.state.backgroundIndex + '&shapeIndex=' + this.state.shapeIndex + '&inputText=' + encodeURI(this.state.inputText) + '&textColor=' + encodeURI(this.state.textColor),
               onCopy: function onCopy() {
                 _this.setState({ copied: true });
               } },
