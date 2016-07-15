@@ -32,8 +32,8 @@ app.listen(port, function () {
 function buildSVG (backgroundIndex, shapeIndex, inputText, textColor) {
   var background = backgrounds[backgroundIndex].vector
   var shape = shapes[shapeIndex].vector
-  var text = buildTextSVGTag(inputText, textColor)
-  return "<svg width='800' height='600'>" + background + shape + text + "</svg>"
+  var text = buildTextSVG(inputText, textColor)
+  return "<svg width='800' height='600'" + background + shape + text + "</svg>"
 }
 
 function buildPNG (svg) {
@@ -42,6 +42,27 @@ function buildPNG (svg) {
     .catch(e => console.error(e))
 }
 
-function buildTextSVGTag (text, color) {
-  return '<text x="50" y="150" font-size="5rem" font-family="Courier New" stroke="black" fill="' + color + '">' + text + '</text>'
+function buildTextSVG (text, color) {
+  var wordsArray = text.split(' ')
+  var lineArray = []
+  var line = ''
+  wordsArray.forEach(function (elem, i) {
+    if (i === wordsArray.length - 1) {
+      line = line + ' ' + elem
+      lineArray.push(line)
+    }
+    else if (line.length + elem.length >= 28) {
+      lineArray.push(line)
+      line = elem
+    } else {
+      line = line + ' ' + elem
+    }
+  })
+  return lineArray.reduce(function (total, elem, i) {
+    return total + buildTextSVGTag(elem, color, 50 , (330 + 45 * i))
+  }, '')
+}
+
+function buildTextSVGTag (text, color, x, y) {
+  return '<text x="' + x + ' " y="' + y + '" font-size="5rem" font-family="Permanent Marker" stroke="black" fill="' + color + '">' + text + '</text>'
 }
