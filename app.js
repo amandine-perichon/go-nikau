@@ -11,13 +11,13 @@ var Cheer = React.createClass({
               this.props.inputText,
               this.props.textColor)
     function createMarkup() { return {__html: svg} }
-    return <div className= "eight columns cheer" dangerouslySetInnerHTML={createMarkup()}></div>
+    return <svg width='800' height='600' className= "nine columns cheer" dangerouslySetInnerHTML={createMarkup()}></svg>
   },
   buildSVG: function (backgroundIndex, shapeIndex, inputText, textColor) {
     var background = backgrounds[backgroundIndex].vector
     var shape = shapes[shapeIndex].vector
     var text = buildTextSVGTag(inputText, textColor)
-    return "<svg width='800' height='600'>" + background + shape + text + "</svg>"
+    return "<svg>" + background + shape + text + "</svg>"
   }
 })
 
@@ -30,9 +30,9 @@ var Selector = React.createClass({
   render : function () {
     return (
       <div>
-        <button onClick={this.previous}>Previous</button>
-        <span>{this.props.choices[this.props.currentIndex].description}</span>
-        <button onClick={this.next}>Next</button>
+        <img className="arrow" src="./images/arrow-left.svg" onClick={this.previous} />
+        <div className="choice">{this.props.choices[this.props.currentIndex].description}</div>
+        <img className="arrow" src="./images/arrow-right.svg" onClick={this.next}/>
       </div>
     )
   },
@@ -60,8 +60,6 @@ var TextInput = React.createClass({
       <textarea
         type="text"
         placeholder="Write a cheer up message to your cohort!"
-        rows="5"
-        cols="40"
         maxLength="200"
         onChange={this.handleChange}
       ></textarea>
@@ -102,10 +100,12 @@ var App = React.createClass({
     return (
       <div>
         <header>
-          <span>GO NIKAU</span>
+          <span className="title">GO NIKAU</span>
+          <span>Cheer your cohort</span>
         </header>
         <div className="row">
-          <div className="four columns">
+          <div className="three columns editor">
+            <div className="helper">Choose a background</div>
             <Selector 
               choices={backgrounds} 
               currentIndex={this.state.backgroundIndex} 
@@ -114,7 +114,7 @@ var App = React.createClass({
               choices={shapes} 
               currentIndex={this.state.shapeIndex} 
               onChange={this.changeShapeIndex} />
-            <div>Write a message and pick a color</div>
+            <div className="helper">Write a message and pick a color</div>
             <TextInput onChange={this.changeText} />
             <ColorInput onChange={this.changeColor}/>
             <CopyToClipboard 
