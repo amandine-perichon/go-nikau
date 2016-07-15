@@ -24,8 +24,9 @@ app.get('/png/', function (req, res) {
   res.sendFile(path.join(__dirname + '/dest.png'))
 })
 
-app.listen(8000, function () {
-  console.log('Listening on port 8000!')
+var port = process.env.PORT || 8000
+app.listen(port, function () {
+  console.log('Listening on port ' + port +' !')
 })
 
 function buildSVG (backgroundIndex, shapeIndex, inputText, textColor) {
