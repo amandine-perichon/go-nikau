@@ -16,8 +16,8 @@ var Cheer = React.createClass({
   buildSVG: function (backgroundIndex, shapeIndex, inputText, textColor) {
     var background = backgrounds[backgroundIndex].vector
     var shape = shapes[shapeIndex].vector
-    var text = buildTextSVGTag(inputText, textColor)
-    return "<svg>" + background + shape + text + "</svg>"
+    var text = buildTextSVG(inputText, textColor)
+    return "<g>" + background + shape + text + "</g>"
   }
 })
 
@@ -60,7 +60,7 @@ var TextInput = React.createClass({
       <textarea
         type="text"
         placeholder="Write a cheer up message to your cohort!"
-        maxLength="200"
+        maxLength="140"
         onChange={this.handleChange}
       ></textarea>
     )
@@ -136,6 +136,8 @@ var App = React.createClass({
             textColor={this.state.textColor}
             onChange={this.changeImage} />
         </div>
+        <footer>
+        </footer>
       </div>
     )
   },
@@ -153,8 +155,31 @@ var App = React.createClass({
   }
 })
 
-function buildTextSVGTag (text, color) {
-  return '<text x="50" y="150" font-size="5rem" font-family="Courier New" stroke="black" fill="' + color + '">' + text + '</text>'
+function buildTextSVG(text, color) {
+  var wordsArray = text.split(' ')
+  console.log(wordsArray)
+  var lineArray = []
+  var line = ''
+  wordsArray.forEach(function (elem, i) {
+    console.log(line)
+    if (i === wordsArray.length - 1) {
+      line = line + ' ' + elem
+      lineArray.push(line)
+    }
+    else if (line.length + elem.length >= 28) {
+      lineArray.push(line)
+      line = elem
+    } else {
+      line = line + ' ' + elem
+    }
+  })
+  return lineArray.reduce(function (total, elem, i) {
+    return total + buildTextSVGTag(elem, color, 50 , (330 + 45 * i))
+  }, '')
+}
+
+function buildTextSVGTag (text, color, x, y) {
+  return '<text x="' + x + ' " y="' + y + '" font-size="5rem" font-family="Permanent Marker" stroke="black" fill="' + color + '">' + text + '</text>'
 }
 
 var app = <App />

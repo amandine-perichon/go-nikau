@@ -9,14 +9,14 @@
   margin: 0;
 }
 
-/* HEADER STYLE */
+/* HEADER AND FOOTER STYLE */
 header {
   font-family: 'Permanent Marker', Arial;
   font-size: 3rem;
   color: white;
   background-color: black;
   height: 7rem;
-  border-bottom: 1px solid blue;
+  border-bottom: 1px solid white;
 }
 
 header .title {
@@ -24,6 +24,13 @@ header .title {
   margin-left: 2rem;
   margin-right: 2rem;
 }
+
+footer {
+  height: 4rem;
+  background-color: black;
+  border-top: 1px solid white;
+}
+
 
 
 /* EDITOR STYLE */
