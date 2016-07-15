@@ -119,7 +119,7 @@ var App = React.createClass({
             <ColorInput onChange={this.changeColor}/>
             <CopyToClipboard 
               text={
-                'http://localhost:8000/png' +
+                'https://go-nikau.herokuapp.com/png' +
                 '?backgroundIndex=' + this.state.backgroundIndex +
                 '&shapeIndex=' + this.state.shapeIndex +
                 '&inputText=' + encodeURI(this.state.inputText) +
