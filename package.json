@@ -4,7 +4,7 @@
   "description": "Cheer up Nikau",
   "main": "app.js",
   "scripts": {
-    "start": "babel app.js --out-file ./public/app-compiled.js && node server.js"
+    "start": "node server.js"
   },
   "babel": {
     "presets": [
