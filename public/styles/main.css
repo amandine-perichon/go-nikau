@@ -50,17 +50,18 @@ button {
 }
 
 .colorpicker {
-  margin: 0.5rem auto;
+  margin: 1rem auto;
 }
 
 textarea {
   width: 14em;
-  margin-bottom: 0.5rem
+  height: 10rem;
+  margin-bottom: 1rem
 }
 
 .helper {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
   font-weight: bold;
   padding-left: 1rem;
 }

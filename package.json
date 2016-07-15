@@ -4,8 +4,7 @@
   "description": "Cheer up Nikau",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src -d lib"
+    "start": "node server.js"
   },
   "babel": {
     "presets": [

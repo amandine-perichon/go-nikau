@@ -59,7 +59,7 @@ var TextInput = React.createClass({
     return (
       <textarea
         type="text"
-        placeholder="Write a cheer up message to your cohort!"
+        placeholder="Write a cheer message to your cohort!"
         maxLength="140"
         onChange={this.handleChange}
       ></textarea>
@@ -91,7 +91,7 @@ var App = React.createClass({
   getInitialState: function() {
     return {backgroundIndex: 0,
             shapeIndex: 0,
-            inputText: 'Go Nikau!',
+            inputText: 'Write a cheer message to your cohort!',
             textColor: 'rgb(0,0,0,1)',
             copied: false
           }
