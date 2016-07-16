@@ -2,7 +2,7 @@ var express = require('express')
 var app = express()
 var path = require('path')
 var fs = require("pn/fs");
-var svg2png = require('svg2png')
+var svg_to_png = require('svg-to-png')
 
 global.pinkSparkle = require('./images/background-0.js')
 global.abstractOrange = require('./images/background-1.js')
@@ -26,7 +26,7 @@ app.get('/png/', function (req, res) {
                      req.query.textColor) + "</svg>"
   svgText = svgText.replace(/inkscape:(export-|connector-curvature)[^"]+"[^"]+"/g, "")
   buildPNG(svgText)
-  res.sendFile(path.join(__dirname + '/dest.png'))
+  res.sendFile(path.join(__dirname + '/dest/image.png'))
 })
 
 var port = process.env.PORT || 8000
@@ -42,11 +42,8 @@ function buildSVG (backgroundIndex, shapeIndex, inputText, textColor) {
 }
 
 function buildPNG (svg) {
-  fs.writeFile('source.svg', svg)
-    .then(() => fs.readFile("source.svg"))
-    .then(svg2png)
-    .then(buffer => fs.writeFile("dest.png", buffer))
-    .catch(e => console.error(e))
+  fs.writeFile('image.svg', svg)
+    .then(() => svg_to_png.convert("./image.svg", "dest"))
 }
 
 function buildTextSVG(text, color) {
