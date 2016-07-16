@@ -4,22 +4,26 @@ var path = require('path')
 var fs = require('fs')
 var svg2png = require('svg2png')
 
-global.triangles = require('./images/background-0.js')
-global.rainbow = require('./images/background-1.js')
-global.zebra = require('./images/background-2.js')
+global.pinkSparkle = require('./images/background-0.js')
+global.abstractOrange = require('./images/background-1.js')
+global.purpleFiesta = require('./images/background-2.js')
+global.cloudyDay = require('./images/background-2.js')
 var backgrounds = require('./images/backgrounds.js')
 
-global.triangle = require('./images/shape-0.js')
-global.rectangle = require('./images/shape-1.js')
+global.octopus = require('./images/shape-0.js')
+global.rainbow = require('./images/shape-1.js')
+global.kiwi = require('./images/shape-1.js')
+global.unicorn = require('./images/shape-1.js')
+global.dragon = require('./images/shape-1.js')
 var shapes = require('./images/shape.js')
 
 app.use('/', express.static('public'))
 
 app.get('/png/', function (req, res) {
-  var svg = buildSVG(req.query.backgroundIndex,
+  var svg = "<svg width='800' height='600'>" + buildSVG(req.query.backgroundIndex,
                      req.query.shapeIndex,
                      req.query.inputText,
-                     req.query.textColor)
+                     req.query.textColor) + "</svg>"
   buildPNG(svg)
   res.sendFile(path.join(__dirname + '/dest.png'))
 })
@@ -33,16 +37,16 @@ function buildSVG (backgroundIndex, shapeIndex, inputText, textColor) {
   var background = backgrounds[backgroundIndex].vector
   var shape = shapes[shapeIndex].vector
   var text = buildTextSVG(inputText, textColor)
-  return "<svg width='800' height='600'" + background + shape + text + "</svg>"
+  return "<g> " + background + shape + text + " </g>"
 }
 
 function buildPNG (svg) {
   svg2png(Buffer.from(svg), { width: 800, height: 600 })
-    .then(buffer => fs.writeFileSync("dest.png", buffer))
+    .then(buffer => fs.writeFile("dest.png", buffer))
     .catch(e => console.error(e))
 }
 
-function buildTextSVG (text, color) {
+function buildTextSVG(text, color) {
   var wordsArray = text.split(' ')
   var lineArray = []
   var line = ''
@@ -51,7 +55,7 @@ function buildTextSVG (text, color) {
       line = line + ' ' + elem
       lineArray.push(line)
     }
-    else if (line.length + elem.length >= 28) {
+    else if (line.length + elem.length >= 27) {
       lineArray.push(line)
       line = elem
     } else {
@@ -64,5 +68,5 @@ function buildTextSVG (text, color) {
 }
 
 function buildTextSVGTag (text, color, x, y) {
-  return '<text x="' + x + ' " y="' + y + '" font-size="5rem" font-family="Permanent Marker" stroke="black" fill="' + color + '">' + text + '</text>'
+  return '<text x="' + x + ' " y="' + y + '" font-size="5rem" font-family="Arial" stroke="black" fill="' + color + '">' + text + '</text>'
 }

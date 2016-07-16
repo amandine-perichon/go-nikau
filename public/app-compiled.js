@@ -14,7 +14,7 @@ var Cheer = React.createClass({
     function createMarkup() {
       return { __html: svg };
     }
-    return React.createElement('svg', { width: '800', height: '600', className: 'nine columns cheer', dangerouslySetInnerHTML: createMarkup() });
+    return React.createElement('svg', { width: '800', height: '600', className: 'eight columns cheer', dangerouslySetInnerHTML: createMarkup() });
   },
   buildSVG: function buildSVG(backgroundIndex, shapeIndex, inputText, textColor) {
     var background = backgrounds[backgroundIndex].vector;
@@ -100,10 +100,10 @@ var App = React.createClass({
   displayName: 'App',
 
   getInitialState: function getInitialState() {
-    return { backgroundIndex: 0,
-      shapeIndex: 0,
-      inputText: 'Write a cheer message to your cohort!',
+    return { backgroundIndex: Math.floor(Math.random() * backgrounds.length),
+      shapeIndex: Math.floor(Math.random() * shapes.length),
       textColor: 'rgb(0,0,0,1)',
+      inputText: 'Write a cheer message to your cohort!',
       copied: false
     };
   },
@@ -132,7 +132,7 @@ var App = React.createClass({
         { className: 'row' },
         React.createElement(
           'div',
-          { className: 'three columns editor' },
+          { className: 'four columns editor' },
           React.createElement(
             'div',
             { className: 'helper' },
@@ -193,15 +193,13 @@ var App = React.createClass({
 
 function buildTextSVG(text, color) {
   var wordsArray = text.split(' ');
-  console.log(wordsArray);
   var lineArray = [];
   var line = '';
   wordsArray.forEach(function (elem, i) {
-    console.log(line);
     if (i === wordsArray.length - 1) {
       line = line + ' ' + elem;
       lineArray.push(line);
-    } else if (line.length + elem.length >= 28) {
+    } else if (line.length + elem.length >= 27) {
       lineArray.push(line);
       line = elem;
     } else {

@@ -1,14 +1,18 @@
 var backgrounds = [
   {
-    description: "Triangles",
-    vector: triangles
+    description: "Pink Sparkle",
+    vector: pinkSparkle
   },
   {
-    description: "Rainbow",
-    vector: rainbow
+    description: "Abstract Orange",
+    vector: abstractOrange
   },
   {
-    description: "Zebra",
-    vector: zebra
+    description: "Purple Fiesta",
+    vector: purpleFiesta
+  },
+    {
+    description: "Cloudy Day",
+    vector: cloudyDay
   }
 ]

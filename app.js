@@ -11,7 +11,7 @@ var Cheer = React.createClass({
               this.props.inputText,
               this.props.textColor)
     function createMarkup() { return {__html: svg} }
-    return <svg width='800' height='600' className= "nine columns cheer" dangerouslySetInnerHTML={createMarkup()}></svg>
+    return <svg width='800' height='600' className= "eight columns cheer" dangerouslySetInnerHTML={createMarkup()}></svg>
   },
   buildSVG: function (backgroundIndex, shapeIndex, inputText, textColor) {
     var background = backgrounds[backgroundIndex].vector
@@ -89,10 +89,10 @@ var ColorInput = React.createClass({
 
 var App = React.createClass({
   getInitialState: function() {
-    return {backgroundIndex: 0,
-            shapeIndex: 0,
+    return {backgroundIndex: Math.floor(Math.random() * backgrounds.length),
+            shapeIndex: Math.floor(Math.random() * shapes.length),
+            textColor: 'rgb(0,0,0,1)',  
             inputText: 'Write a cheer message to your cohort!',
-            textColor: 'rgb(0,0,0,1)',
             copied: false
           }
   },
@@ -104,7 +104,7 @@ var App = React.createClass({
           <span>Cheer your cohort</span>
         </header>
         <div className="row">
-          <div className="three columns editor">
+          <div className="four columns editor">
             <div className="helper">Choose a background</div>
             <Selector 
               choices={backgrounds} 
@@ -157,16 +157,14 @@ var App = React.createClass({
 
 function buildTextSVG(text, color) {
   var wordsArray = text.split(' ')
-  console.log(wordsArray)
   var lineArray = []
   var line = ''
   wordsArray.forEach(function (elem, i) {
-    console.log(line)
     if (i === wordsArray.length - 1) {
       line = line + ' ' + elem
       lineArray.push(line)
     }
-    else if (line.length + elem.length >= 28) {
+    else if (line.length + elem.length >= 27) {
       lineArray.push(line)
       line = elem
     } else {

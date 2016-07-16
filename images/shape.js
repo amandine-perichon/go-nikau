@@ -1,10 +1,22 @@
 module.exports = [
   {
-    description: "Triangle",
-    vector: triangle
+    description: "Octopus",
+    vector: octopus
   },
   {
-    description: "Rectangle",
-    vector: rectangle
+    description: "Rainbow",
+    vector: rainbow
+  },
+  {
+    description: "Kiwi",
+    vector: kiwi
+  },
+  {
+    description: "Unicorn",
+    vector: unicorn
+  },
+  {
+    description: "Dragon",
+    vector: dragon
   }
 ]
