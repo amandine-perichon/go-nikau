@@ -1,7 +1,4 @@
-module.exports = `<metadata
-     id="metadata8"><rdf:RDF><cc:Work
-         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+module.exports = `<defs
      id="defs6" /><g
      transform="matrix(0.57874584,0,0,-0.62796508,-0.41560563,612.27052)"
      id="g10"><g

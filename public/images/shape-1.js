@@ -1,7 +1,4 @@
-var rainbow = `<metadata
-     id="metadata8"><rdf:RDF><cc:Work
-         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+var rainbow = `<defs
      id="defs6"><clipPath
        id="clipPath18"
        clipPathUnits="userSpaceOnUse"><path

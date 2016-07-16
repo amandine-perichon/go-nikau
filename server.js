@@ -1,7 +1,7 @@
 var express = require('express')
 var app = express()
 var path = require('path')
-var fs = require('fs')
+var fs = require("pn/fs");
 var svg2png = require('svg2png')
 
 global.pinkSparkle = require('./images/background-0.js')
@@ -20,11 +20,12 @@ var shapes = require('./images/shape.js')
 app.use('/', express.static('public'))
 
 app.get('/png/', function (req, res) {
-  var svg = "<svg width='800' height='600'>" + buildSVG(req.query.backgroundIndex,
+  var svgText = "<svg width='800' height='600'>" + buildSVG(req.query.backgroundIndex,
                      req.query.shapeIndex,
                      req.query.inputText,
                      req.query.textColor) + "</svg>"
-  buildPNG(svg)
+  svgText = svgText.replace(/inkscape:(export-|connector-curvature)[^"]+"[^"]+"/g, "")
+  buildPNG(svgText)
   res.sendFile(path.join(__dirname + '/dest.png'))
 })
 
@@ -41,7 +42,9 @@ function buildSVG (backgroundIndex, shapeIndex, inputText, textColor) {
 }
 
 function buildPNG (svg) {
-  svg2png(Buffer.from(svg), { width: 800, height: 600 })
+  fs.writeFile('source.svg', svg)
+    .then(() => fs.readFile("source.svg"))
+    .then(svg2png)
     .then(buffer => fs.writeFile("dest.png", buffer))
     .catch(e => console.error(e))
 }

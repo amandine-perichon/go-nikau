@@ -1,5 +1,4 @@
-module.exports = `
-  </sodipodi:namedview>
+module.exports = `</sodipodi:namedview>
   <defs
      id="defs4">
     <linearGradient

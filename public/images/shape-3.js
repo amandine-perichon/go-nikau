@@ -1,5 +1,4 @@
-var unicorn = `
-  </sodipodi:namedview>
+var unicorn = `</sodipodi:namedview>
   <defs
      id="defs4">
     <linearGradient

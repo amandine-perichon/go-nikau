@@ -1,7 +1,4 @@
-var pinkSparkle = `<metadata
-     id="metadata8"><rdf:RDF><cc:Work
-         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+var pinkSparkle = `<defs
      id="defs6"><clipPath
        id="clipPath20"
        clipPathUnits="userSpaceOnUse"><path
